@@ -14,7 +14,6 @@ import com.arthas.service.shell.system.JobController;
 import com.arthas.service.shell.system.impl.InternalCommandManager;
 import com.arthas.service.shell.system.impl.JobControllerImpl;
 import com.arthas.service.shell.term.Term;
-import com.arthas.service.utils.Constants;
 import com.arthas.service.utils.LogUtil;
 import com.taobao.middleware.logger.Logger;
 
@@ -41,7 +40,6 @@ public class ShellImpl implements Shell {
     private Term term;
     private String welcome;
     private Job currentForegroundJob;
-    private String prompt;
 
     public ShellImpl(ShellServer server, Term term, InternalCommandManager commandManager,
                      Instrumentation instrumentation, int pid, JobControllerImpl jobController) {
@@ -59,7 +57,6 @@ public class ShellImpl implements Shell {
         if (term != null) {
             term.setSession(session);
         }
-        this.setPrompt();
     }
 
     public JobController jobController() {
@@ -76,12 +73,6 @@ public class ShellImpl implements Shell {
         return job;
     }
 
-    private void setPrompt(){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[绩效管理系统");
-        stringBuilder.append("> ");
-        this.prompt = stringBuilder.toString();
-    }
 
     @Override
     public Job createJob(String line) {
@@ -145,7 +136,7 @@ public class ShellImpl implements Shell {
     }
 
     public void readline() {
-        term.readline(prompt, new ShellLineHandler(this),
+        term.readline("$ ", new ShellLineHandler(this),
                 new CommandManagerCompletionHandler(commandManager));
     }
 
