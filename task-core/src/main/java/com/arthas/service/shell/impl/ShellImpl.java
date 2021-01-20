@@ -41,6 +41,7 @@ public class ShellImpl implements Shell {
     private Term term;
     private String welcome;
     private Job currentForegroundJob;
+    private String prompt;
 
     public ShellImpl(ShellServer server, Term term, InternalCommandManager commandManager,
                      Instrumentation instrumentation, int pid, JobControllerImpl jobController) {
@@ -55,10 +56,10 @@ public class ShellImpl implements Shell {
         this.closedFuture = Future.future();
         this.term = term;
         this.jobController = jobController;
-
         if (term != null) {
             term.setSession(session);
         }
+        this.setPrompt();
     }
 
     public JobController jobController() {
@@ -73,6 +74,13 @@ public class ShellImpl implements Shell {
     public synchronized Job createJob(List<CliToken> args) {
         Job job = jobController.createJob(commandManager, args, this);
         return job;
+    }
+
+    private void setPrompt(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[绩效管理系统");
+        stringBuilder.append("> ");
+        this.prompt = stringBuilder.toString();
     }
 
     @Override
@@ -137,7 +145,7 @@ public class ShellImpl implements Shell {
     }
 
     public void readline() {
-        term.readline(Constants.DEFAULT_PROMPT, new ShellLineHandler(this),
+        term.readline(prompt, new ShellLineHandler(this),
                 new CommandManagerCompletionHandler(commandManager));
     }
 

@@ -24,11 +24,7 @@ public class TelnetConsole {
     private TelnetClient telnet = new TelnetClient();
     private static InputStream in;
     private static PrintStream out;
-    private static char prompt = '$';
-
-    private static final String PROMPT = "$";
     private static final int DEFAULT_CONNECTION_TIMEOUT = 5000; // 5000 ms
-    private static final int DEFAULT_BUFFER_SIZE = 1024;
 
 
     private static final byte CTRL_C = 0x03;

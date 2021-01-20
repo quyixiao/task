@@ -95,6 +95,7 @@ public class Bootstrap {
         }
         URLClassLoader classLoader = new URLClassLoader(
                 new URL[]{new File(TASK_CLIENT_JAR_DETAULT_PACKAGE_PATH, TASK_CLIENT_JAR_DEFAULT_PACKAGE_NAME).toURI().toURL()});
+        AnsiLog.info(" client path :" + TASK_CLIENT_JAR_DETAULT_PACKAGE_PATH + "," + TASK_CLIENT_JAR_DEFAULT_PACKAGE_NAME);
         Class<?> telnetConsoleClas = classLoader.loadClass("com.arthas.client.TelnetConsole");
         Method mainMethod = telnetConsoleClas.getMethod("main", String[].class);
 
