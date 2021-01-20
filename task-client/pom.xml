@@ -54,12 +54,6 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>com.lz.task</groupId>
-            <artifactId>task-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
         <!--Lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="445bd5fa-6af4-4f3c-80fa-c8ac75a42653" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-client/src/main/java/com/arthas/client/IOUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-client/src/main/java/com/arthas/client/IOUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task-client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/task-client/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +206,7 @@
       <workItem from="1611106494041" duration="14818000" />
       <workItem from="1611128456255" duration="3104000" />
       <workItem from="1611131665698" duration="4556000" />
-      <workItem from="1611136232622" duration="1116000" />
+      <workItem from="1611136232622" duration="1198000" />
     </task>
     <servers />
   </component>
