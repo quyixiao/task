@@ -248,10 +248,6 @@ public class ProcessUtils {
         // -core "${arthas_lib_dir}/arthas-core.jar" \
         // -agent "${arthas_lib_dir}/arthas-agent.jar"
 
-        for (String b : command) {
-            System.out.println("=========" + b);
-        }
-
         ProcessBuilder pb = new ProcessBuilder(command);
         try {
             final Process proc = pb.start();
@@ -285,8 +281,6 @@ public class ProcessUtils {
             redirectStdout.join();
             redirectStderr.join();
             int exitValue = proc.exitValue();
-
-            System.out.println("boot core 启动完成 exitValue :" + exitValue);
             if (exitValue != 0) {
                 AnsiLog.error("attach fail, targetPid: ");
                 System.exit(1);
@@ -296,51 +290,6 @@ public class ProcessUtils {
         }
     }
 
-    public static int startArthasClient(String arthasHomeDir, List<String> telnetArgs, OutputStream out) throws Throwable {
-        // start java telnet client
-        // find arthas-client.jar
-        URLClassLoader classLoader = new URLClassLoader(
-                new URL[]{new File(arthasHomeDir, "arthas-client.jar").toURI().toURL()});
-        Class<?> telnetConsoleClas = classLoader.loadClass("com.taobao.arthas.client.TelnetConsole");
-        Method processMethod = telnetConsoleClas.getMethod("process", String[].class);
-
-        //redirect System.out/System.err
-        PrintStream originSysOut = System.out;
-        PrintStream originSysErr = System.err;
-        PrintStream newOut = new PrintStream(out);
-        PrintStream newErr = new PrintStream(out);
-
-        // call TelnetConsole.process()
-        // fix https://github.com/alibaba/arthas/issues/833
-        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-        try {
-            System.setOut(newOut);
-            System.setErr(newErr);
-            Thread.currentThread().setContextClassLoader(classLoader);
-            return (Integer) processMethod.invoke(null, new Object[]{telnetArgs.toArray(new String[0])});
-        } catch (Throwable e) {
-            //java.lang.reflect.InvocationTargetException : java.net.ConnectException
-            e = e.getCause();
-            if (e instanceof IOException || e instanceof InterruptedException) {
-                // ignore connection error and interrupted error
-                return STATUS_ERROR;
-            } else {
-                // process error
-                AnsiLog.error("process error: {}", e.toString());
-                AnsiLog.error(e);
-                return STATUS_EXEC_ERROR;
-            }
-        } finally {
-            Thread.currentThread().setContextClassLoader(tccl);
-
-            //reset System.out/System.err
-            System.setOut(originSysOut);
-            System.setErr(originSysErr);
-            //flush output
-            newOut.flush();
-            newErr.flush();
-        }
-    }
 
     private static File findJava() {
         String javaHome = findJavaHome();

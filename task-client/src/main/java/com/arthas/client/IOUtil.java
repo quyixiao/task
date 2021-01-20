@@ -17,6 +17,12 @@ public final class IOUtil {
     public static final void readWrite(final InputStream remoteInput, final OutputStream remoteOutput,
                                        final InputStream localInput, final Writer localOutput) {
         Thread reader, writer;
+        try {
+            System.setOut(new PrintStream(new FileOutputStream("/Users/quyixiao/github/task/task-core/src/test/java/test.txt")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+        }
 
         reader = new Thread() {
             @Override

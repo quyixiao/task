@@ -24,7 +24,7 @@ public class ShellServerOptions {
      */
     public static final long DEFAULT_CONNECTION_TIMEOUT = 6000; // 6 seconds
 
-    public static final String DEFAULT_WELCOME_MESSAGE = " welcome wo 是 瞿贻晓 ";
+    public static final String DEFAULT_WELCOME_MESSAGE = " welcome to task ";
 
     public static final String DEFAULT_INPUTRC = "com/taobao/arthas/core/shell/term/readline/inputrc";
 

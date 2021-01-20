@@ -27,6 +27,7 @@
 /Users/quyixiao/github/task/task-core/src/main/java/com/arthas/service/utils/ArthasBanner.java
 /Users/quyixiao/github/task/task-core/src/main/java/com/arthas/service/GlobalOptions.java
 /Users/quyixiao/github/task/task-core/src/main/java/com/arthas/service/command/basic1000/HelpCommand.java
+/Users/quyixiao/github/task/task-core/src/main/java/com/arthas/service/command/basic1000/DefaultCommand.java
 /Users/quyixiao/github/task/task-core/src/main/java/com/arthas/service/shell/handlers/NoOpHandler.java
 /Users/quyixiao/github/task/task-core/src/main/java/com/arthas/service/shell/term/TermServer.java
 /Users/quyixiao/github/task/task-core/src/main/java/com/arthas/service/shell/handlers/server/TermServerTermHandler.java

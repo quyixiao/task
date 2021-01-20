@@ -54,13 +54,10 @@ public class TelnetConsole {
 
     public static int process(String[] args) {
         try {
-            System.out.println("====================client run =============================");
             final TelnetClient telnet = new TelnetClient();
             telnet.setConnectTimeout(DEFAULT_CONNECTION_TIMEOUT);
-
             int width = DEFAULT_WIDTH;
             int height = DEFAULT_HEIGHT;
-
             final ConsoleReader consoleReader = new ConsoleReader(System.in, System.out);
             // send init terminal size
             TelnetOptionHandler sizeOpt = new WindowSizeOptionHandler(width, height, true, true, false, false);

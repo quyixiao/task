@@ -115,6 +115,7 @@ com/arthas/service/shell/system/Process.class
 com/arthas/service/shell/command/impl/CommandBuilderImpl$1.class
 com/arthas/service/shell/handlers/term/DefaultTermStdinHandler.class
 com/arthas/service/shell/handlers/term/EventHandler$1.class
+com/arthas/service/command/basic1000/DefaultCommand.class
 com/arthas/service/shell/system/impl/ProcessImpl.class
 com/arthas/service/advisor/Advice.class
 com/arthas/service/shell/handlers/shell/QExitHandler.class

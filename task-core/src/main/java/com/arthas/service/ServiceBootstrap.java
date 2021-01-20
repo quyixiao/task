@@ -77,9 +77,6 @@ public class ServiceBootstrap {
     }
 
     public static void main(String[] args) {
-
-        System.out.println("11111111");
-
         Integer pid = 0;
         String ip = "127.0.0.1";
         int telnetPort = 3658;
@@ -116,6 +113,5 @@ public class ServiceBootstrap {
         }
         //server进行监听，注册错误报错handler ,这个代码主要是监听命令作用，具体的 listen 方法内部看看
         shellServer.listen(new BindHandler(isBindRef));
-        System.out.println(" core   start finish ===================");
     }
 }

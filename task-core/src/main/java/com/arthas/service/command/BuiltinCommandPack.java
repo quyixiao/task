@@ -1,6 +1,7 @@
 package com.arthas.service.command;
 
 
+import com.arthas.service.command.basic1000.DefaultCommand;
 import com.arthas.service.command.basic1000.HelpCommand;
 import com.arthas.service.shell.command.Command;
 import com.arthas.service.shell.command.CommandResolver;
@@ -28,6 +29,7 @@ public class BuiltinCommandPack implements CommandResolver {
 
     private static void initCommands() {
         commands.add(Command.create(HelpCommand.class));
+        commands.add(Command.create(DefaultCommand.class));
 
     }
 }

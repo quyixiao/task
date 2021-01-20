@@ -47,7 +47,6 @@ public class HelpCommand extends AnnotatedCommand {
     public void process(CommandProcess process) {
         List<Command> commands = allCommands(process.session());
         Command targetCmd = findCommand(commands);
-        System.out.println("---------------------------------------------");
         String message;
         if (targetCmd == null) {
             message = RenderUtil.render(mainHelp(commands), process.width());

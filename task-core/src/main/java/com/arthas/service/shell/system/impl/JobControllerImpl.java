@@ -122,7 +122,12 @@ public class JobControllerImpl implements JobController {
                     Command command = commandManager.getCommand(token.value());
                     if (command != null) {
                         return createCommandProcess(command, tokens, jobId, term);
-                    } else {
+                    }
+                    else {
+                        command = commandManager.getCommand("default");
+                        if(command !=null){
+                            return createCommandProcess(command, tokens, jobId, term);
+                        }
                         throw new IllegalArgumentException(token.value() + ": command not found");
                     }
                 }
