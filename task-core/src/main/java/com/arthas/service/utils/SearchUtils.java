@@ -1,7 +1,6 @@
 package com.arthas.service.utils;
 
 
-
 import com.arthas.service.GlobalOptions;
 import com.arthas.service.utils.matcher.Matcher;
 import com.arthas.service.utils.matcher.RegexMatcher;
@@ -15,6 +14,7 @@ import java.util.Set;
 /**
  * 类搜索工具
  * Created by vlinux on 15/5/17.
+ *
  * @author diecui1202 on 2017/09/07.
  */
 public class SearchUtils {

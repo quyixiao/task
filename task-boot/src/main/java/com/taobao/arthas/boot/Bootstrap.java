@@ -1,26 +1,15 @@
 package com.taobao.arthas.boot;
 
 import com.taobao.arthas.boot.common.AnsiLog;
-import com.taobao.arthas.boot.common.JavaVersionUtils;
 import com.taobao.arthas.boot.common.SocketUtils;
 import com.taobao.arthas.boot.common.UsageRender;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.security.CodeSource;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-
-import static com.taobao.arthas.boot.ProcessUtils.STATUS_EXEC_ERROR;
-import static com.taobao.arthas.boot.ProcessUtils.STATUS_EXEC_TIMEOUT;
 
 /**
  * @author hengyunabc 2018-10-26
@@ -43,6 +32,7 @@ public class Bootstrap {
      */
     private Long sessionTimeout;
 
+    public static final Random random = new Random();
     private Integer height = null;
     private Integer width = null;
 
@@ -105,66 +95,85 @@ public class Bootstrap {
 
 
     public static void main(String[] args) throws Exception {
-
         Bootstrap bootstrap = new Bootstrap();
         if (bootstrap.isVerbose()) {
             AnsiLog.level(Level.ALL);
         }
-
         if (bootstrap.isVersions()) {
             System.out.println(UsageRender.render(listVersions()));
             System.exit(0);
         }
-
-
         // check telnet/http port
         long telnetPortPid = -1;
         long httpPortPid = -1;
+        boolean startCoreFlag = true;
         if (bootstrap.getTelnetPortOrDefault() > 0) {
             telnetPortPid = SocketUtils.findTcpListenProcess(bootstrap.getTelnetPortOrDefault());
             if (telnetPortPid > 0) {
+                startCoreFlag = false;
                 AnsiLog.info("Process {} already using port {}", telnetPortPid, bootstrap.getTelnetPortOrDefault());
             }
         }
         if (bootstrap.getHttpPortOrDefault() > 0) {
             httpPortPid = SocketUtils.findTcpListenProcess(bootstrap.getHttpPortOrDefault());
             if (httpPortPid > 0) {
+                startCoreFlag = false;
                 AnsiLog.info("Process {} already using port {}", httpPortPid, bootstrap.getHttpPortOrDefault());
             }
         }
-
-        Thread subThread = new Thread(new SubThread());
-        subThread.start();
-
-        Thread.sleep(5000);
+        if (startCoreFlag) {
+            Thread subThread = new Thread(new SubThread());
+            subThread.start();
+            lockTryTimes(10000l);
+        }
         URLClassLoader classLoader = new URLClassLoader(
-                new URL[] { new File("/Users/quyixiao/github/task/task-client/target", "task-client-jar-with-dependencies.jar").toURI().toURL() });
+                new URL[]{new File("/Users/quyixiao/github/task/task-client/target", "task-client-jar-with-dependencies.jar").toURI().toURL()});
         Class<?> telnetConsoleClas = classLoader.loadClass("com.arthas.client.TelnetConsole");
         Method mainMethod = telnetConsoleClas.getMethod("main", String[].class);
 
         List<String> telnetArgs = new ArrayList<String>();
         Thread.currentThread().setContextClassLoader(classLoader);
-        mainMethod.invoke(null, new Object[] { telnetArgs.toArray(new String[0]) });
+        mainMethod.invoke(null, new Object[]{telnetArgs.toArray(new String[0])});
     }
 
-
-    private static class SubThread implements Runnable{
-
+    private static class SubThread implements Runnable {
         public void run() {
             try {
-
-                List<String> serviceArgs = Arrays.asList(new String[]{"-jar","/Users/quyixiao/github/task/task-core/target/task-core-jar-with-dependencies.jar"});
-                ProcessUtils.startArthasCore( serviceArgs);
-
+                List<String> serviceArgs = Arrays.asList(new String[]{"-jar", "/Users/quyixiao/github/task/task-core/target/task-core-jar-with-dependencies.jar"});
+                ProcessUtils.startArthasCore(serviceArgs);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             System.out.println("Sub thread is stopping!");
-
         }
-
     }
 
+    public static boolean lockTryTimes(final Long tryTimes) {
+        try {
+            // 请求锁超时时间，毫秒
+            long timeout = tryTimes * 1000;
+            // 系统当前时间，毫秒
+            long nowTime = System.currentTimeMillis();
+            while ((System.currentTimeMillis() - nowTime) < timeout) {
+                seleep(10, 500);
+                long telnetPortPid = SocketUtils.findTcpListenProcess(DEFAULT_TELNET_PORT);
+                if (telnetPortPid > 0) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static void seleep(long millis, int nanos) {
+        try {
+            Thread.sleep(millis, random.nextInt(nanos));
+        } catch (InterruptedException e) {
+            AnsiLog.info("获取分布式锁休眠被中断：", e);
+        }
+    }
 
     private static String listVersions() {
         StringBuilder result = new StringBuilder(1024);
@@ -203,7 +212,6 @@ public class Bootstrap {
         }
         return names;
     }
-
 
 
     public String getArthasHome() {

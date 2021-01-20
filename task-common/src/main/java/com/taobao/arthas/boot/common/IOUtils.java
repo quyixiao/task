@@ -1,16 +1,12 @@
 package com.taobao.arthas.boot.common;
 
-import sun.reflect.generics.tree.IntSignature;
-
 import java.io.*;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
- *
  * @author hengyunabc 2018-11-06
- *
  */
 public class IOUtils {
 
@@ -21,7 +17,7 @@ public class IOUtils {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int length;
-        if(inputStream == null){
+        if (inputStream == null) {
             return result.toString("UTF-8");
         }
         while ((length = inputStream.read(buffer)) != -1) {
@@ -40,7 +36,7 @@ public class IOUtils {
 
     /**
      * @return a byte[] containing the information contained in the specified
-     *         InputStream.
+     * InputStream.
      * @throws IOException
      */
     public static byte[] getBytes(InputStream input) throws IOException {
@@ -92,7 +88,7 @@ public class IOUtils {
     public static boolean isSubFile(File parent, File child) throws IOException {
         return child.getCanonicalPath().startsWith(parent.getCanonicalPath() + File.separator);
     }
- 
+
     public static boolean isSubFile(String parent, String child) throws IOException {
         return isSubFile(new File(parent), new File(child));
     }

@@ -1,7 +1,6 @@
 package com.arthas.service.utils;
 
 
-
 import java.io.File;
 
 
@@ -76,15 +75,13 @@ public interface Constants {
     /**
      * 缓存目录
      */
-    String CACHE_ROOT =LogUtil. LOGS_DIR + File.separator + "arthas-cache";
-
+    String CACHE_ROOT = LogUtil.LOGS_DIR + File.separator + "arthas-cache";
 
 
     /**
      * 当前进程PID
      */
     String PID = ApplicationUtils.getPid();
-
 
 
 }

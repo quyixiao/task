@@ -10,9 +10,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /**
- *
  * @author hengyunabc 2018-11-06
- *
  */
 public class ProcessUtils {
     private static String FOUND_JAVA_HOME = null;
@@ -53,20 +51,20 @@ public class ProcessUtils {
             return -1;
         }
 
-		// select target process by the '--select' option when match only one process
-		if (select != null && !select.trim().isEmpty()) {
-			int matchedSelectCount = 0;
-			Long matchedPid = null;
-			for (Entry<Long, String> entry : processMap.entrySet()) {
-				if (entry.getValue().contains(select)) {
-					matchedSelectCount++;
-					matchedPid = entry.getKey();
-				}
-			}
-			if (matchedSelectCount == 1) {
-				return matchedPid;
-			}
-		}
+        // select target process by the '--select' option when match only one process
+        if (select != null && !select.trim().isEmpty()) {
+            int matchedSelectCount = 0;
+            Long matchedPid = null;
+            for (Entry<Long, String> entry : processMap.entrySet()) {
+                if (entry.getValue().contains(select)) {
+                    matchedSelectCount++;
+                    matchedPid = entry.getKey();
+                }
+            }
+            if (matchedSelectCount == 1) {
+                return matchedPid;
+            }
+        }
 
         AnsiLog.info("Found existing java process, please choose one and input the serial number of the process, eg : 1. Then hit ENTER.");
         // print list
@@ -117,9 +115,9 @@ public class ProcessUtils {
 
         String[] command = null;
         if (v) {
-            command = new String[] { jps, "-v", "-l" };
+            command = new String[]{jps, "-v", "-l"};
         } else {
-            command = new String[] { jps, "-l" };
+            command = new String[]{jps, "-l"};
         }
 
         List<String> lines = ExecutingCommand.runNative(command);
@@ -204,7 +202,7 @@ public class ProcessUtils {
                 }
 
                 throw new IllegalArgumentException("Can not find tools.jar under java home: " + javaHome
-                                + ", please try to start arthas-boot with full path java. Such as /opt/jdk/bin/java -jar arthas-boot.jar");
+                        + ", please try to start arthas-boot with full path java. Such as /opt/jdk/bin/java -jar arthas-boot.jar");
             }
         } else {
             FOUND_JAVA_HOME = javaHome;
@@ -220,7 +218,7 @@ public class ProcessUtils {
         File javaPath = findJava();
         if (javaPath == null) {
             throw new IllegalArgumentException(
-                            "Can not find java/java.exe executable file under java home: " + javaHome);
+                    "Can not find java/java.exe executable file under java home: " + javaHome);
         }
 
         File toolsJar = findToolsJar();
@@ -250,8 +248,8 @@ public class ProcessUtils {
         // -core "${arthas_lib_dir}/arthas-core.jar" \
         // -agent "${arthas_lib_dir}/arthas-agent.jar"
 
-        for(String b :command){
-            System.out.println("=========" + b );
+        for (String b : command) {
+            System.out.println("=========" + b);
         }
 
         ProcessBuilder pb = new ProcessBuilder(command);
@@ -288,7 +286,7 @@ public class ProcessUtils {
             redirectStderr.join();
             int exitValue = proc.exitValue();
 
-            System.out.println("boot core 启动完成 exitValue :" + exitValue );
+            System.out.println("boot core 启动完成 exitValue :" + exitValue);
             if (exitValue != 0) {
                 AnsiLog.error("attach fail, targetPid: ");
                 System.exit(1);
@@ -346,7 +344,7 @@ public class ProcessUtils {
 
     private static File findJava() {
         String javaHome = findJavaHome();
-        String[] paths = { "bin/java", "bin/java.exe", "../bin/java", "../bin/java.exe" };
+        String[] paths = {"bin/java", "bin/java.exe", "../bin/java", "../bin/java.exe"};
 
         List<File> javaList = new ArrayList<File>();
         for (String path : paths) {
@@ -405,7 +403,7 @@ public class ProcessUtils {
     private static File findJps() {
         // Try to find jps under java.home and System env JAVA_HOME
         String javaHome = System.getProperty("java.home");
-        String[] paths = { "bin/jps", "bin/jps.exe", "../bin/jps", "../bin/jps.exe" };
+        String[] paths = {"bin/jps", "bin/jps.exe", "../bin/jps", "../bin/jps.exe"};
 
         List<File> jpsList = new ArrayList<File>();
         for (String path : paths) {

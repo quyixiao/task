@@ -79,13 +79,13 @@ public class ForwardClientSocketClientHandler extends SimpleChannelInboundHandle
             // Channel localChannel = b.connect(localServerURI.getHost(), localServerURI.getPort()).sync().channel();
             this.handshakeFuture = localFrameHandler.handshakeFuture();
             handshakeFuture.addListener(new GenericFutureListener<ChannelFuture>() {
-                        @Override
-                        public void operationComplete(ChannelFuture future) throws Exception {
-                            ChannelPipeline pipeline = future.channel().pipeline();
-                            pipeline.remove(localFrameHandler);
-                            pipeline.addLast(new RelayHandler(ctx.channel()));
-                        }
-                    });
+                @Override
+                public void operationComplete(ChannelFuture future) throws Exception {
+                    ChannelPipeline pipeline = future.channel().pipeline();
+                    pipeline.remove(localFrameHandler);
+                    pipeline.addLast(new RelayHandler(ctx.channel()));
+                }
+            });
 
             handshakeFuture.sync();
             ctx.pipeline().remove(ForwardClientSocketClientHandler.this);
@@ -113,7 +113,7 @@ public class ForwardClientSocketClientHandler extends SimpleChannelInboundHandle
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        logger.error("ForwardClientSocketClient channel: {}" , ctx.channel(), cause);
+        logger.error("ForwardClientSocketClient channel: {}", ctx.channel(), cause);
         if (!handshakeFuture.isDone()) {
             handshakeFuture.setFailure(cause);
         }

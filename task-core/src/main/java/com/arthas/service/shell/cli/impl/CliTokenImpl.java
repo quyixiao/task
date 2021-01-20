@@ -1,4 +1,5 @@
 package com.arthas.service.shell.cli.impl;
+
 import com.arthas.service.shell.cli.CliToken;
 import io.termd.core.readline.LineStatus;
 

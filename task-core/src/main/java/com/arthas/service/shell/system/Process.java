@@ -171,7 +171,7 @@ public interface Process {
 
     /**
      * Set job id
-     * 
+     *
      * @param jobId job id
      */
     void setJobId(int jobId);

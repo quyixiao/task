@@ -15,7 +15,7 @@ import java.io.*;
 public final class IOUtil {
 
     public static final void readWrite(final InputStream remoteInput, final OutputStream remoteOutput,
-                    final InputStream localInput, final Writer localOutput) {
+                                       final InputStream localInput, final Writer localOutput) {
         Thread reader, writer;
 
         reader = new Thread() {

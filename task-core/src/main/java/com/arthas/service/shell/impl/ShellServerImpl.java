@@ -173,7 +173,7 @@ public class ShellServerImpl extends ShellServer {
             // close shell's foreground job
             job.terminate();
             logger.info(null, "Session {} closed, so terminate foreground job, id: {}, line: {}",
-                        shell.session().getSessionId(), job.id(), job.line());
+                    shell.session().getSessionId(), job.id(), job.line());
         }
 
         synchronized (ShellServerImpl.this) {

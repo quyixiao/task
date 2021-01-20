@@ -20,9 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 
  * @author hengyunabc 2020-10-22
- *
  */
 public class ProxyClient {
     private static final Logger logger = LoggerFactory.getLogger(ProxyClient.class);

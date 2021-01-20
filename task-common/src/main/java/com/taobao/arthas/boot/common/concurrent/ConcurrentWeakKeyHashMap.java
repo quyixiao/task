@@ -32,6 +32,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * An alternative weak-key {@link ConcurrentMap} which is similar to
  * {@link ConcurrentHashMap}.
+ *
  * @param <K> the type of keys maintained by this map
  * @param <V> the type of mapped values
  */
@@ -163,7 +164,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
     /**
      * ConcurrentReferenceHashMap list entry. Note that this is never exported
      * out as a user-visible Map.Entry.
-     *
+     * <p>
      * Because the value field is volatile, not final, it is legal wrt
      * the Java Memory Model for an unsynchronized reader to see null
      * instead of initial value when read via a data race.  Although a
@@ -385,7 +386,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
 
         boolean containsValue(Object value) {
             if (count != 0) { // read-volatile
-                for (HashEntry<K, V> e: table) {
+                for (HashEntry<K, V> e : table) {
                     for (; e != null; e = e.next) {
                         Object opaque = e.valueRef;
                         V v;
@@ -450,7 +451,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
             try {
                 removeStale();
                 int c = count;
-                if (c ++ > threshold) { // ensure capacity
+                if (c++ > threshold) { // ensure capacity
                     int reduced = rehash();
                     if (reduced > 0) {
                         count = (c -= reduced) - 1; // write-volatile
@@ -473,7 +474,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
                     }
                 } else {
                     oldValue = null;
-                    ++ modCount;
+                    ++modCount;
                     tab[index] = newHashEntry(key, hash, first, value);
                     count = c; // write-volatile
                 }
@@ -507,7 +508,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
             threshold = (int) (newTable.length * loadFactor);
             int sizeMask = newTable.length - 1;
             int reduce = 0;
-            for (HashEntry<K, V> e: oldTable) {
+            for (HashEntry<K, V> e : oldTable) {
                 // We need to guarantee that any existing reads of old Map can
                 // proceed. So we cannot yet null out each bin.
                 if (e != null) {
@@ -575,12 +576,12 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
                         oldValue = v;
                         // All entries following removed node can stay in list,
                         // but all preceding ones need to be cloned.
-                        ++ modCount;
+                        ++modCount;
                         HashEntry<K, V> newFirst = e.next;
                         for (HashEntry<K, V> p = first; p != e; p = p.next) {
                             K pKey = p.key();
                             if (pKey == null) { // Skip GC'd keys
-                                c --;
+                                c--;
                                 continue;
                             }
 
@@ -610,10 +611,10 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
                 lock();
                 try {
                     HashEntry<K, V>[] tab = table;
-                    for (int i = 0; i < tab.length; i ++) {
+                    for (int i = 0; i < tab.length; i++) {
                         tab[i] = null;
                     }
-                    ++ modCount;
+                    ++modCount;
                     // replace the reference queue to avoid unnecessary stale
                     // cleanups
                     refQueue = new ReferenceQueue<Object>();
@@ -631,11 +632,11 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
      * Creates a new, empty map with the specified initial capacity, load factor
      * and concurrency level.
      *
-     * @param initialCapacity the initial capacity. The implementation performs
-     *                        internal sizing to accommodate this many elements.
-     * @param loadFactor the load factor threshold, used to control resizing.
-     *                   Resizing may be performed when the average number of
-     *                   elements per bin exceeds this threshold.
+     * @param initialCapacity  the initial capacity. The implementation performs
+     *                         internal sizing to accommodate this many elements.
+     * @param loadFactor       the load factor threshold, used to control resizing.
+     *                         Resizing may be performed when the average number of
+     *                         elements per bin exceeds this threshold.
      * @param concurrencyLevel the estimated number of concurrently updating
      *                         threads. The implementation performs internal
      *                         sizing to try to accommodate this many threads.
@@ -657,7 +658,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
         int sshift = 0;
         int ssize = 1;
         while (ssize < concurrencyLevel) {
-            ++ sshift;
+            ++sshift;
             ssize <<= 1;
         }
         segmentShift = 32 - sshift;
@@ -669,14 +670,14 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
         }
         int c = initialCapacity / ssize;
         if (c * ssize < initialCapacity) {
-            ++ c;
+            ++c;
         }
         int cap = 1;
         while (cap < c) {
             cap <<= 1;
         }
 
-        for (int i = 0; i < segments.length; ++ i) {
+        for (int i = 0; i < segments.length; ++i) {
             segments[i] = new Segment<K, V>(cap, loadFactor);
         }
     }
@@ -688,9 +689,9 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
      *
      * @param initialCapacity The implementation performs internal sizing to
      *                        accommodate this many elements.
-     * @param loadFactor the load factor threshold, used to control resizing.
-     *                   Resizing may be performed when the average number of
-     *                   elements per bin exceeds this threshold.
+     * @param loadFactor      the load factor threshold, used to control resizing.
+     *                        Resizing may be performed when the average number of
+     *                        elements per bin exceeds this threshold.
      * @throws IllegalArgumentException if the initial capacity of elements is
      *                                  negative or the load factor is
      *                                  nonpositive
@@ -732,8 +733,8 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
      */
     public ConcurrentWeakKeyHashMap(Map<? extends K, ? extends V> m) {
         this(Math.max((int) (m.size() / DEFAULT_LOAD_FACTOR) + 1,
-             DEFAULT_INITIAL_CAPACITY), DEFAULT_LOAD_FACTOR,
-             DEFAULT_CONCURRENCY_LEVEL);
+                DEFAULT_INITIAL_CAPACITY), DEFAULT_LOAD_FACTOR,
+                DEFAULT_CONCURRENCY_LEVEL);
         putAll(m);
     }
 
@@ -755,7 +756,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
          */
         int[] mc = new int[segments.length];
         int mcsum = 0;
-        for (int i = 0; i < segments.length; ++ i) {
+        for (int i = 0; i < segments.length; ++i) {
             if (segments[i].count != 0) {
                 return false;
             } else {
@@ -766,7 +767,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
         // any modifications at all were made.  This is probably common enough
         // to bother tracking.
         if (mcsum != 0) {
-            for (int i = 0; i < segments.length; ++ i) {
+            for (int i = 0; i < segments.length; ++i) {
                 if (segments[i].count != 0 || mc[i] != segments[i].modCount) {
                     return false;
                 }
@@ -790,16 +791,16 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
         int[] mc = new int[segments.length];
         // Try a few times to get accurate count. On failure due to continuous
         // async changes in table, resort to locking.
-        for (int k = 0; k < RETRIES_BEFORE_LOCK; ++ k) {
+        for (int k = 0; k < RETRIES_BEFORE_LOCK; ++k) {
             check = 0;
             sum = 0;
             int mcsum = 0;
-            for (int i = 0; i < segments.length; ++ i) {
+            for (int i = 0; i < segments.length; ++i) {
                 sum += segments[i].count;
                 mcsum += mc[i] = segments[i].modCount;
             }
             if (mcsum != 0) {
-                for (int i = 0; i < segments.length; ++ i) {
+                for (int i = 0; i < segments.length; ++i) {
                     check += segments[i].count;
                     if (mc[i] != segments[i].modCount) {
                         check = -1; // force retry
@@ -813,13 +814,13 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
         }
         if (check != sum) { // Resort to locking all segments
             sum = 0;
-            for (Segment<K, V> segment: segments) {
+            for (Segment<K, V> segment : segments) {
                 segment.lock();
             }
-            for (Segment<K, V> segment: segments) {
+            for (Segment<K, V> segment : segments) {
                 sum += segment.count;
             }
-            for (Segment<K, V> segment: segments) {
+            for (Segment<K, V> segment : segments) {
                 segment.unlock();
             }
         }
@@ -850,10 +851,10 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
     /**
      * Tests if the specified object is a key in this table.
      *
-     * @param  key   possible key
+     * @param key possible key
      * @return <tt>true</tt> if and only if the specified object is a key in
-     *         this table, as determined by the <tt>equals</tt> method;
-     *         <tt>false</tt> otherwise.
+     * this table, as determined by the <tt>equals</tt> method;
+     * <tt>false</tt> otherwise.
      * @throws NullPointerException if the specified key is null
      */
     @Override
@@ -869,7 +870,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
      *
      * @param value value whose presence in this map is to be tested
      * @return <tt>true</tt> if this map maps one or more keys to the specified
-     *         value
+     * value
      * @throws NullPointerException if the specified value is null
      */
 
@@ -885,9 +886,9 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
         int[] mc = new int[segments.length];
 
         // Try a few times without locking
-        for (int k = 0; k < RETRIES_BEFORE_LOCK; ++ k) {
+        for (int k = 0; k < RETRIES_BEFORE_LOCK; ++k) {
             int mcsum = 0;
-            for (int i = 0; i < segments.length; ++ i) {
+            for (int i = 0; i < segments.length; ++i) {
                 mcsum += mc[i] = segments[i].modCount;
                 if (segments[i].containsValue(value)) {
                     return true;
@@ -895,7 +896,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
             }
             boolean cleanSweep = true;
             if (mcsum != 0) {
-                for (int i = 0; i < segments.length; ++ i) {
+                for (int i = 0; i < segments.length; ++i) {
                     if (mc[i] != segments[i].modCount) {
                         cleanSweep = false;
                         break;
@@ -907,19 +908,19 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
             }
         }
         // Resort to locking all segments
-        for (Segment<K, V> segment: segments) {
+        for (Segment<K, V> segment : segments) {
             segment.lock();
         }
         boolean found = false;
         try {
-            for (Segment<K, V> segment: segments) {
+            for (Segment<K, V> segment : segments) {
                 if (segment.containsValue(value)) {
                     found = true;
                     break;
                 }
             }
         } finally {
-            for (Segment<K, V> segment: segments) {
+            for (Segment<K, V> segment : segments) {
                 segment.unlock();
             }
         }
@@ -933,10 +934,10 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
      * with class {@link Hashtable}, which supported this method prior to
      * introduction of the Java Collections framework.
      *
-     * @param  value a value to search for
+     * @param value a value to search for
      * @return <tt>true</tt> if and only if some key maps to the <tt>value</tt>
-     *         argument in this table as determined by the <tt>equals</tt>
-     *         method; <tt>false</tt> otherwise
+     * argument in this table as determined by the <tt>equals</tt>
+     * method; <tt>false</tt> otherwise
      * @throws NullPointerException if the specified value is null
      */
     public boolean contains(Object value) {
@@ -950,10 +951,10 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
      * <p>The value can be retrieved by calling the <tt>get</tt> method with a
      * key that is equal to the original key.
      *
-     * @param key key with which the specified value is to be associated
+     * @param key   key with which the specified value is to be associated
      * @param value value to be associated with the specified key
      * @return the previous value associated with <tt>key</tt>, or <tt>null</tt>
-     *         if there was no mapping for <tt>key</tt>
+     * if there was no mapping for <tt>key</tt>
      * @throws NullPointerException if the specified key or value is null
      */
     @Override
@@ -967,7 +968,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
 
     /**
      * @return the previous value associated with the specified key, or
-     *         <tt>null</tt> if there was no mapping for the key
+     * <tt>null</tt> if there was no mapping for the key
      * @throws NullPointerException if the specified key or value is null
      */
     public V putIfAbsent(K key, V value) {
@@ -987,7 +988,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
      */
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        for (Entry<? extends K, ? extends V> e: m.entrySet()) {
+        for (Entry<? extends K, ? extends V> e : m.entrySet()) {
             put(e.getKey(), e.getValue());
         }
     }
@@ -996,9 +997,9 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
      * Removes the key (and its corresponding value) from this map.  This method
      * does nothing if the key is not in the map.
      *
-     * @param  key the key that needs to be removed
+     * @param key the key that needs to be removed
      * @return the previous value associated with <tt>key</tt>, or <tt>null</tt>
-     *         if there was no mapping for <tt>key</tt>
+     * if there was no mapping for <tt>key</tt>
      * @throws NullPointerException if the specified key is null
      */
     @Override
@@ -1031,7 +1032,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
 
     /**
      * @return the previous value associated with the specified key, or
-     *         <tt>null</tt> if there was no mapping for the key
+     * <tt>null</tt> if there was no mapping for the key
      * @throws NullPointerException if the specified key or value is null
      */
     public V replace(K key, V value) {
@@ -1047,7 +1048,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
      */
     @Override
     public void clear() {
-        for (Segment<K, V> segment: segments) {
+        for (Segment<K, V> segment : segments) {
             segment.clear();
         }
     }
@@ -1059,12 +1060,12 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
      * some cases where this operation should be performed eagerly, such as
      * cleaning up old references to a ClassLoader in a multi-classloader
      * environment.
-     *
+     * <p>
      * Note: this method will acquire locks, one at a time, across all segments
      * of this table, so if it is to be used, it should be used sparingly.
      */
     public void purgeStaleEntries() {
-        for (Segment<K, V> segment: segments) {
+        for (Segment<K, V> segment : segments) {
             segment.removeStale();
         }
     }
@@ -1087,7 +1088,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
     @Override
     public Set<K> keySet() {
         Set<K> ks = keySet;
-        return ks != null? ks : (keySet = new KeySet());
+        return ks != null ? ks : (keySet = new KeySet());
     }
 
     /**
@@ -1108,7 +1109,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
     @Override
     public Collection<V> values() {
         Collection<V> vs = values;
-        return vs != null? vs : (values = new Values());
+        return vs != null ? vs : (values = new Values());
     }
 
     /**
@@ -1129,7 +1130,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
     @Override
     public Set<Entry<K, V>> entrySet() {
         Set<Entry<K, V>> es = entrySet;
-        return es != null? es : (entrySet = new EntrySet());
+        return es != null ? es : (entrySet = new EntrySet());
     }
 
     /**
@@ -1188,16 +1189,16 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
             }
 
             while (nextTableIndex >= 0) {
-                if ((nextEntry = currentTable[nextTableIndex --]) != null) {
+                if ((nextEntry = currentTable[nextTableIndex--]) != null) {
                     return;
                 }
             }
 
             while (nextSegmentIndex >= 0) {
-                Segment<K, V> seg = segments[nextSegmentIndex --];
+                Segment<K, V> seg = segments[nextSegmentIndex--];
                 if (seg.count != 0) {
                     currentTable = seg.table;
-                    for (int j = currentTable.length - 1; j >= 0; -- j) {
+                    for (int j = currentTable.length - 1; j >= 0; --j) {
                         if ((nextEntry = currentTable[j]) != null) {
                             nextTableIndex = j - 1;
                             return;
@@ -1310,7 +1311,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
 
         @Override
         public int hashCode() {
-            return (key == null? 0 : key.hashCode()) ^ (value == null? 0 : value.hashCode());
+            return (key == null ? 0 : key.hashCode()) ^ (value == null ? 0 : value.hashCode());
         }
 
         @Override
@@ -1319,7 +1320,7 @@ public final class ConcurrentWeakKeyHashMap<K, V> extends AbstractMap<K, V> impl
         }
 
         private static boolean eq(Object o1, Object o2) {
-            return o1 == null? o2 == null : o1.equals(o2);
+            return o1 == null ? o2 == null : o1.equals(o2);
         }
     }
 

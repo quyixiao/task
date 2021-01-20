@@ -25,9 +25,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * 
  * @author hengyunabc 2019-08-28
- *
  */
 public class ForwardClient {
     private final static Logger logger = LoggerFactory.getLogger(ForwardClient.class);

@@ -27,7 +27,7 @@ public class StyledUsageFormatter extends UsageMessageFormatter {
     }
 
     public static String styledUsage(CLI cli, int width) {
-        if(cli == null) {
+        if (cli == null) {
             return "";
         }
         StringBuilder usageBuilder = new StringBuilder();
@@ -50,7 +50,7 @@ public class StyledUsageFormatter extends UsageMessageFormatter {
 
         if (cli.getDescription() != null) {
             String[] descLines = cli.getDescription().split("\\n");
-            for (String line: descLines) {
+            for (String line : descLines) {
                 if (shouldBeHighlighted(line)) {
                     table.add(row().add(label(line).style(getHighlightedStyle())));
                 } else {
@@ -86,10 +86,10 @@ public class StyledUsageFormatter extends UsageMessageFormatter {
                 }
 
                 table.add(row().add(label(optionSb.toString()).style(getHighlightedStyle()))
-                                .add(option.getDescription()));
+                        .add(option.getDescription()));
             }
 
-            for (Argument argument: cli.getArguments()) {
+            for (Argument argument : cli.getArguments()) {
                 table.add(row().add(label("<" + argument.getArgName() + ">").style(getHighlightedStyle()))
                         .add(argument.getDescription()));
             }

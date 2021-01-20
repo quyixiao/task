@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author hengyunabc 2018-11-06
- *
  */
 public class DownloadUtils {
     private static final String ARTHAS_VERSIONS_URL = "https://arthas.aliyun.com/api/versions";

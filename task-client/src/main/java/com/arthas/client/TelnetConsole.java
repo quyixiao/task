@@ -99,8 +99,7 @@ public class TelnetConsole {
                 in = telnet.getInputStream();
                 out = new PrintStream(telnet.getOutputStream());
             } catch (IOException e) {
-                System.out.println("Connect to telnet server error: " + targetIp + " "
-                        + 22);
+                System.out.println("Connect to telnet server error: " + targetIp + " " + 22);
                 throw e;
             }
             IOUtil.readWrite(telnet.getInputStream(), telnet.getOutputStream(), System.in,

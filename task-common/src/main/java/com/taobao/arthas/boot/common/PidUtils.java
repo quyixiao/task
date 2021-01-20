@@ -3,9 +3,7 @@ package com.taobao.arthas.boot.common;
 import java.lang.management.ManagementFactory;
 
 /**
- *
  * @author hengyunabc 2019-02-16
- *
  */
 public class PidUtils {
     private static String PID = "-1";

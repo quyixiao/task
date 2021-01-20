@@ -19,7 +19,7 @@ public class RequestHandler implements Consumer<String> {
     @Override
     public void accept(String line) {
         term.setInReadline(false);
-        System.out.println(" line = "+ line);
+        System.out.println(" line = " + line);
         lineHandler.handle(line);
     }
 }

@@ -70,7 +70,7 @@ public class TokenUtils {
         if (tokens == null || tokens.isEmpty()) {
             return null;
         } else {
-            return tokens.get(tokens.size() -1);
+            return tokens.get(tokens.size() - 1);
         }
     }
 

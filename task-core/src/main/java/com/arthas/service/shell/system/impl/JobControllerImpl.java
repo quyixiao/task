@@ -84,7 +84,7 @@ public class JobControllerImpl implements JobController {
             }
         }
         if (jobs.isEmpty()) {
-            if (completionHandler!= null) {
+            if (completionHandler != null) {
                 completionHandler.handle(null);
             }
         } else {
@@ -106,10 +106,10 @@ public class JobControllerImpl implements JobController {
     /**
      * Try to create a process from the command line tokens.
      *
-     * @param line the command line tokens
+     * @param line           the command line tokens
      * @param commandManager command manager
-     * @param jobId job id
-     * @param term term
+     * @param jobId          job id
+     * @param term           term
      * @return the created process
      */
     private Process createProcess(List<CliToken> line, InternalCommandManager commandManager, int jobId, Term term) {

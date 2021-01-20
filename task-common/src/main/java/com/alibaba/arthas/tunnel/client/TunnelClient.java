@@ -29,9 +29,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * 
  * @author hengyunabc 2019-08-28
- *
  */
 public class TunnelClient {
     private final static Logger logger = LoggerFactory.getLogger(TunnelClient.class);
@@ -109,9 +107,9 @@ public class TunnelClient {
         Bootstrap bs = new Bootstrap();
 
         bs.group(eventLoopGroup)
-        .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
-        .option(ChannelOption.TCP_NODELAY, true)
-        .channel(NioSocketChannel.class).remoteAddress(host, port)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                .option(ChannelOption.TCP_NODELAY, true)
+                .channel(NioSocketChannel.class).remoteAddress(host, port)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) {

@@ -4,9 +4,7 @@ import com.arthas.service.shell.command.CommandProcess;
 import com.arthas.service.shell.handlers.Handler;
 
 /**
- *
  * @author hengyunabc 2019-02-09
- *
  */
 public class QExitHandler implements Handler<String> {
     private CommandProcess process;

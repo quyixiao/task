@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * TODO automatically discover the built-in commands.
+ *
  * @author beiwei30 on 17/11/2016.
  */
 public class BuiltinCommandPack implements CommandResolver {

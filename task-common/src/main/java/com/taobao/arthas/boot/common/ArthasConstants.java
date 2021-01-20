@@ -1,14 +1,12 @@
 package com.taobao.arthas.boot.common;
 
 /**
- * 
  * @author hengyunabc 2020-09-02
- *
  */
 public class ArthasConstants {
     /**
      * local address in VM communication
-     * 
+     *
      * @see io.netty.channel.local.LocalAddress
      * @see io.netty.channel.local.LocalChannel
      */

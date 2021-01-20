@@ -2,7 +2,6 @@ package com.taobao.arthas.boot.common;
 
 /**
  * Enum of supported operating systems.
- *
  */
 public enum PlatformEnum {
     /**

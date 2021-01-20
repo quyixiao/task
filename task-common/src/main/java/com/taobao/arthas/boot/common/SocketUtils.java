@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
  * @author hengyunabc 2018-11-07
- *
  */
 public class SocketUtils {
 
@@ -33,7 +31,7 @@ public class SocketUtils {
     public static long findTcpListenProcess(int port) {
         try {
             if (OSUtils.isWindows()) {
-                String[] command = { "netstat", "-ano", "-p", "TCP" };
+                String[] command = {"netstat", "-ano", "-p", "TCP"};
                 List<String> lines = ExecutingCommand.runNative(command);
                 for (String line : lines) {
                     if (line.contains("LISTENING")) {
@@ -75,7 +73,7 @@ public class SocketUtils {
     /**
      * Find an available TCP port randomly selected from the range
      * [{@value #PORT_RANGE_MIN}, {@value #PORT_RANGE_MAX}].
-     * 
+     *
      * @return an available TCP port number
      * @throws IllegalStateException if no available port could be found
      */
@@ -86,7 +84,7 @@ public class SocketUtils {
     /**
      * Find an available TCP port randomly selected from the range [{@code minPort},
      * {@value #PORT_RANGE_MAX}].
-     * 
+     *
      * @param minPort the minimum port number
      * @return an available TCP port number
      * @throws IllegalStateException if no available port could be found
@@ -98,7 +96,7 @@ public class SocketUtils {
     /**
      * Find an available TCP port randomly selected from the range [{@code minPort},
      * {@code maxPort}].
-     * 
+     *
      * @param minPort the minimum port number
      * @param maxPort the maximum port number
      * @return an available TCP port number
@@ -111,7 +109,7 @@ public class SocketUtils {
     /**
      * Find an available port for this {@code SocketType}, randomly selected from
      * the range [{@code minPort}, {@code maxPort}].
-     * 
+     *
      * @param minPort the minimum port number
      * @param maxPort the maximum port number
      * @return an available port number for this socket type
@@ -138,7 +136,7 @@ public class SocketUtils {
     /**
      * Find a pseudo-random port number within the range [{@code minPort},
      * {@code maxPort}].
-     * 
+     *
      * @param minPort the minimum port number
      * @param maxPort the maximum port number
      * @return a random port number within the specified range

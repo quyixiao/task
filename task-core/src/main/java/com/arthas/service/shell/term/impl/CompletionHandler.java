@@ -28,7 +28,7 @@ class CompletionHandler implements Consumer<Completion> {
     }
 
     @Override
-    public void accept(final  io.termd.core.readline.Completion completion) {
+    public void accept(final io.termd.core.readline.Completion completion) {
         try {
             final String line = io.termd.core.util.Helper.fromCodePoints(completion.line());
             final List<CliToken> tokens = Collections.unmodifiableList(CliTokens.tokenize(line));

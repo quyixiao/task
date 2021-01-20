@@ -57,7 +57,6 @@ public interface Session {
 
     /**
      * Unlock the session
-     *
      */
     void unLock();
 
@@ -77,6 +76,7 @@ public interface Session {
 
     /**
      * Get session id
+     *
      * @return session id
      */
     String getSessionId();

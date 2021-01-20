@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
  * @author hengyunabc 2020-10-22
- *
  */
 public class SimpleHttpResponse implements Serializable {
 

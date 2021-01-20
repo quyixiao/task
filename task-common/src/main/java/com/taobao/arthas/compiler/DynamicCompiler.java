@@ -16,8 +16,8 @@ public class DynamicCompiler {
     public DynamicCompiler(ClassLoader classLoader) {
         if (javaCompiler == null) {
             throw new IllegalStateException(
-                            "Can not load JavaCompiler from javax.tools.ToolProvider#getSystemJavaCompiler(),"
-                                            + " please confirm the application running in JDK not JRE.");
+                    "Can not load JavaCompiler from javax.tools.ToolProvider#getSystemJavaCompiler(),"
+                            + " please confirm the application running in JDK not JRE.");
         }
         standardFileManager = javaCompiler.getStandardFileManager(null, null, null);
 
@@ -42,7 +42,7 @@ public class DynamicCompiler {
 
         DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<JavaFileObject>();
         JavaCompiler.CompilationTask task = javaCompiler.getTask(null, fileManager, collector, options, null,
-                        compilationUnits);
+                compilationUnits);
 
         try {
 
@@ -53,16 +53,16 @@ public class DynamicCompiler {
 
                     for (Diagnostic<? extends JavaFileObject> diagnostic : collector.getDiagnostics()) {
                         switch (diagnostic.getKind()) {
-                        case NOTE:
-                        case MANDATORY_WARNING:
-                        case WARNING:
-                            warnings.add(diagnostic);
-                            break;
-                        case OTHER:
-                        case ERROR:
-                        default:
-                            errors.add(diagnostic);
-                            break;
+                            case NOTE:
+                            case MANDATORY_WARNING:
+                            case WARNING:
+                                warnings.add(diagnostic);
+                                break;
+                            case OTHER:
+                            case ERROR:
+                            default:
+                                errors.add(diagnostic);
+                                break;
                         }
 
                     }
@@ -92,7 +92,7 @@ public class DynamicCompiler {
 
         DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<JavaFileObject>();
         JavaCompiler.CompilationTask task = javaCompiler.getTask(null, fileManager, collector, options, null,
-                        compilationUnits);
+                compilationUnits);
 
         try {
 
@@ -103,16 +103,16 @@ public class DynamicCompiler {
 
                     for (Diagnostic<? extends JavaFileObject> diagnostic : collector.getDiagnostics()) {
                         switch (diagnostic.getKind()) {
-                        case NOTE:
-                        case MANDATORY_WARNING:
-                        case WARNING:
-                            warnings.add(diagnostic);
-                            break;
-                        case OTHER:
-                        case ERROR:
-                        default:
-                            errors.add(diagnostic);
-                            break;
+                            case NOTE:
+                            case MANDATORY_WARNING:
+                            case WARNING:
+                                warnings.add(diagnostic);
+                                break;
+                            case OTHER:
+                            case ERROR:
+                            default:
+                                errors.add(diagnostic);
+                                break;
                         }
 
                     }
@@ -139,7 +139,7 @@ public class DynamicCompiler {
 
         for (Diagnostic<? extends JavaFileObject> diagnostic : diagnostics) {
             diagnosticMessages.add(
-                            "line: " + diagnostic.getLineNumber() + ", message: " + diagnostic.getMessage(Locale.US));
+                    "line: " + diagnostic.getLineNumber() + ", message: " + diagnostic.getMessage(Locale.US));
         }
 
         return diagnosticMessages;

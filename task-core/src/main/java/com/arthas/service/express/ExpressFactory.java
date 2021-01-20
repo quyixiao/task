@@ -2,6 +2,7 @@ package com.arthas.service.express;
 
 /**
  * ExpressFactory
+ *
  * @author ralf0131 2017-01-04 14:40.
  * @author hengyunabc 2018-10-08
  */
@@ -16,6 +17,7 @@ public class ExpressFactory {
 
     /**
      * get ThreadLocal Express Object
+     *
      * @param object
      * @return
      */

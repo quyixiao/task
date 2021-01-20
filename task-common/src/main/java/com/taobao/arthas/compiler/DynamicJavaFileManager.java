@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
-    private static final String[] superLocationNames = { StandardLocation.PLATFORM_CLASS_PATH.name(),
+    private static final String[] superLocationNames = {StandardLocation.PLATFORM_CLASS_PATH.name(),
             /** JPMS StandardLocation.SYSTEM_MODULES **/
-            "SYSTEM_MODULES" };
+            "SYSTEM_MODULES"};
     private final PackageInternalsFinder finder;
 
     private final DynamicClassLoader classLoader;

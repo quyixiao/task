@@ -96,11 +96,11 @@ public class ArthasBanner {
     public static String welcome() {
         logger.info("arthas version: " + version());
         TableElement table = new TableElement().rightCellPadding(1)
-                        .row("wiki", wiki())
-                        .row("tutorials", tutorials())
-                        .row("version", version())
-                        .row("pid", PidUtils.currentPid())
-                        .row("time", DateUtils.getCurrentDate());
+                .row("wiki", wiki())
+                .row("tutorials", tutorials())
+                .row("version", version())
+                .row("pid", PidUtils.currentPid())
+                .row("time", DateUtils.getCurrentDate());
 
         return logo() + "\n" + RenderUtil.render(table);
     }

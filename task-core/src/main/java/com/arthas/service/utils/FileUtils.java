@@ -2,8 +2,10 @@ package com.arthas.service.utils;
 
 /**
  * Copied from {@link org.apache.commons.io.FileUtils}
+ *
  * @author ralf0131 2016-12-28 11:46.
  */
+
 import io.termd.core.util.Helper;
 
 import java.io.*;
@@ -105,7 +107,7 @@ public class FileUtils {
         OutputStream out = null;
         try {
             out = new BufferedOutputStream(openOutputStream(file, false));
-            for (int[] command: history) {
+            for (int[] command : history) {
                 for (int i : command) {
                     out.write(i);
                 }

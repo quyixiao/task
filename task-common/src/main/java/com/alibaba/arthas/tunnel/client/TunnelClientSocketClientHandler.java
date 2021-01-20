@@ -1,4 +1,3 @@
-
 package com.alibaba.arthas.tunnel.client;
 
 import com.alibaba.arthas.tunnel.common.MethodConstants;
@@ -25,9 +24,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 
  * @author hengyunabc 2019-08-28
- *
  */
 public class TunnelClientSocketClientHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
     private final static Logger logger = LoggerFactory.getLogger(TunnelClientSocketClientHandler.class);
@@ -97,7 +94,7 @@ public class TunnelClientSocketClientHandler extends SimpleChannelInboundHandler
                  * 2. 然后通过 ProxyClient直接请求得到结果
                  * 3. 把response结果转为 byte[]，再转为base64，再统一组合的一个url，再用 TextWebSocketFrame 发回去
                  * </pre>
-                 * 
+                 *
                  */
                 ProxyClient proxyClient = new ProxyClient();
                 List<String> targetUrls = parameters.get(URIConstans.TARGET_URL);

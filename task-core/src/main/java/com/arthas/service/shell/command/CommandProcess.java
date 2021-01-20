@@ -123,7 +123,7 @@ public interface CommandProcess extends Tty {
     /**
      * Register listener
      *
-     * @param lock the lock for enhance class
+     * @param lock     the lock for enhance class
      * @param listener
      */
     void register(int lock, AdviceListener listener);

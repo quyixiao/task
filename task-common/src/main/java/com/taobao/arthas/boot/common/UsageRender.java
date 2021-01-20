@@ -1,9 +1,7 @@
 package com.taobao.arthas.boot.common;
 
 /**
- *
  * @author hengyunabc 2018-11-22
- *
  */
 public class UsageRender {
 

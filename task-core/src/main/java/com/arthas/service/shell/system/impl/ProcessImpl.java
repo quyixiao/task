@@ -542,7 +542,7 @@ public class ProcessImpl implements Process {
         @Override
         public void resume() {
             if (this.enhanceLock >= 0 && suspendedListener != null) {
-             //   AdviceWeaver.resume(enhanceLock, suspendedListener);
+                //   AdviceWeaver.resume(enhanceLock, suspendedListener);
                 suspendedListener = null;
             }
         }
@@ -550,7 +550,7 @@ public class ProcessImpl implements Process {
         @Override
         public void suspend() {
             if (this.enhanceLock >= 0) {
-               // suspendedListener = AdviceWeaver.suspend(enhanceLock);
+                // suspendedListener = AdviceWeaver.suspend(enhanceLock);
             }
         }
 
